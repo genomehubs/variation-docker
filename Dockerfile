@@ -1,6 +1,6 @@
 # DOCKER-VERSION 1.12.3
 
-FROM genomehubs/easy-import:latest
+FROM genomehubs/easy-import:89
 MAINTAINER Richard Challis / Lepbase contact@lepbase.org
 
 ENV TERM xterm
@@ -20,17 +20,18 @@ RUN make
 
 USER eguser
 WORKDIR /ensembl
-RUN git clone -b release/85 https://github.com/ensembl/ensembl-tools
+#RUN git clone -b release/89 https://github.com/ensembl/ensembl-tools
 
 RUN git clone https://github.com/adamsardar/perl-libs-custom.git
 
 WORKDIR /ensembl/easy-import
-ARG  cachebuster=0b7ad45e7
+ARG  cachebuster=0b7ad45c8
 RUN  git pull origin develop && git submodule update --recursive
 
 COPY startup.sh /import/
 
 ENV PATH $PATH:/bcftools
 ENV PERL5LIB $PERL5LIB:/ensembl/perl-libs-custom/EnsemblAPI/ensembl-variation/scripts/import
+ENV HOME tmp
 
 CMD /import/startup.sh $FLAGS
