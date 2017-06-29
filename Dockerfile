@@ -30,6 +30,8 @@ RUN  git pull origin develop && git submodule update --recursive
 
 COPY startup.sh /import/
 
+COPY Slice.pm /ensembl/ensembl/modules/Bio/EnsEMBL/
+
 ENV PATH $PATH:/bcftools
 ENV PERL5LIB $PERL5LIB:/ensembl/perl-libs-custom/EnsemblAPI/ensembl-variation/scripts/import
 ENV HOME tmp
